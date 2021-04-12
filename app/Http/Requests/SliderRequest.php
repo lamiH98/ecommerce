@@ -26,7 +26,7 @@ class SliderRequest extends FormRequest
         return [
             'title'         => 'required',
             'title_ar'      => 'required',
-//             'subtitle'      => 'required',
+            'subtitle'      => 'required',
             'subtitle_ar'   => 'required',
         ];
     }
