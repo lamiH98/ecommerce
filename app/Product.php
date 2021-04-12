@@ -9,7 +9,7 @@ class Product extends Model
     protected $guard = 'admin';
 
     protected $fillable = [
-        'name', 'image', 'price', 'quantity', 'category_id', 'details', 'price_offer','product_new'
+        'name', 'name_ar', 'image', 'price', 'quantity', 'category_id', 'details', 'price_offer','product_new'
     ];
 
     public function category()
