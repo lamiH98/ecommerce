@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\dashboard\DashboardController.php;
+use App\Http\Controllers\dashboard\DashboardController;
 
 Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
