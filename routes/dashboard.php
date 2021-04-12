@@ -1,14 +1,12 @@
 <?php
 
-use App\Http\Controllers\dashboard\DashboardController;
-
 Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 
-Route::group(['prefix' => 'dashboard' , 'namespace' => 'Dashboard' , 'middleware' => 'auth:admin'], function () {
+Route::group(['prefix' => 'dashboard' , 'namespace' => 'dashboard' , 'middleware' => 'auth:admin'], function () {
     // Route Dashboard
-    // Route::get('/', 'DashboardController@index')->name('dashboard.index');
-    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/', 'DashboardController@index')->name('dashboard.index');
+//     Route::get('/', [DashboardController::class, 'index']);
 
     // Route Admin
     Route::resource('admin', 'AdminController');
