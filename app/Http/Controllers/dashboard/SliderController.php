@@ -36,7 +36,7 @@ class SliderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SliderRequest $request)
+    public function store(Request $request)
     {
         if($request->hasFile('slider_image')) {
             $uploadImage = $request->file('slider_image');
