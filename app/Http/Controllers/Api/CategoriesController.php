@@ -14,8 +14,13 @@ class CategoriesController extends Controller
     use GeneralTrait;
 
     public function index() {
-        $categories = Category::all();
-        return $this->returnData('categories', $categories);
+        $categories = Category::where('parent_id', null)->get();
+        return $this->sendResponse('categories', $categories);
+    }
+
+    public function getChildCategory($id) {
+        $categories = Category::where('parent_id', $id)->get();
+        return $this->sendResponse('categories', $categories);
     }
 
     public function store(CategoryRequest $request)
@@ -32,14 +37,6 @@ class CategoriesController extends Controller
 
         Category::create($request->all());
             return $this->returnSuccessMessage('تم عملية الإضافة بنجاح');
-    }
-
-    public function getCategoryById($id) {
-        $category = Category::findOrFail($id);
-        // $category = Category::where('id', '>', $id)->get();
-        if (!$category)
-            return $this->returnError('001', 'هذا القسم غير موجد');
-        return $this->returnData('categroy', $category);
     }
 
     public function changeStatus(Request $request) {

@@ -16,6 +16,23 @@ class AuthController extends Controller
 
     use GeneralTrait;
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $users = User::all();
+        return $this->sendResponse('users', $users, 'All Users');
+    }
+
+    public function userAddress($id) {
+        $user = User::find($id);
+        $userAddress = $user->Address;
+        return $this->sendResponse('userAddress', $userAddress);
+    }
+
     public function login(Request $request) {
 
         try {

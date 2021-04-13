@@ -24,22 +24,10 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // $products = Product::all();
         $products = Product::with('category', 'sizes', 'colors', 'brands')->get();
-        return $this->returnData('products', $products);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $sizes      = Size::all();
-        $colors     = Color::all();
-        $brands     = Brand::all();
-        $categories = Category::all();
-        return  view('dashboard.product.create', compact('sizes' , 'colors' , 'categories', 'brands'));
+        // $productColor = Product::find(3)->colors;
+        return $this->sendResponse('products', $products, 'All Product');
     }
 
     /**
@@ -65,25 +53,12 @@ class ProductController extends Controller
         $product->colors()->attach($request->color);
         $product->sizes()->attach($request->size);
         $product->brands()->attach($request->brand);
-        if($product) {
-            return redirect()->back()->with('success',  __('message.add_success'));
-        } else {
-            return back()->with('error', 'That Is Error');
+        try {
+            return $this->sendSuccess('added product successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $product = Product::findOrFail($id);
-        return view('dashboard.product.show', compact('product'));
-    }
-
 
     public function upload(Request $request, Product $product) {
         if($request->hasFile('file')) {
@@ -116,22 +91,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $sizes       = Size::all();
-        $colors      = Color::all();
-        $brands      = Brand::all();
-        $categories  = Category::all();
-        $product     = Product::findOrFail($id);
-        return  view('dashboard.product.edit', compact('product', 'sizes', 'colors', 'categories', 'brands'));
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -157,9 +116,12 @@ class ProductController extends Controller
         $product->colors()->sync($request->color);
         $product->sizes()->sync($request->size);
         $product->brands()->sync($request->brand);
-        $product->fill($request->all());
-        $product->update();
-            return redirect()->route('product.index')->with('success', __('message.update_success'));
+        try {
+            $product->update($request->all());
+                return $this->sendSuccess('update size successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
+        }
     }
 
     /**
@@ -170,30 +132,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $product = Product::findOrFail($id);
+        if(empty($product)) {
+            return $this->sendError('Product Not Found');
+        }
         try{
-            $product = Product::findOrFail($id);
             $product->delete();
-            return redirect()->back()->with('success', __('message.delete_success'));
-        }
-        catch(ModelNotFoundException $ModelNotFoundException) {
-
-            return redirect()->back()->with('error',  __('message.not_found'));
-        }
-    }
-
-    public function Multidestroy(Request $request) {
-
-        try{
-            $multiDeletes = $request->input('MultDelete');
-            if($multiDeletes == null) {
-                return redirect()->back()->with('error' , __('message.select_item'));
-            }
-            $count = count($multiDeletes);
-            Product::whereIn('id' , $multiDeletes)->delete();
-            return redirect()->back()->with('success',  __('message.multi_delete') . $count);
-        }
-        catch(ModelNotFoundException $ModelNotFoundException) {
-            return redirect()->route('product.index')->with('error',  __('message.not_found'));
+            return $this->sendSuccess('delete product successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
         }
     }
 }

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Slider;
-use App\Http\Requests\SliderRequest;
+use App\Brand;
+use App\Http\Requests\BrandRequest;
 use Illuminate\Http\Request;
 use App\Traits\GeneralTrait;
 use App\Http\Controllers\Controller;
 
-class SliderController extends Controller
+class BrandController extends Controller
 {
     use GeneralTrait;
 
@@ -19,8 +19,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::all();
-        return $this->sendResponse('sliders', $sliders, 'all slider');
+        $brands = Brand::all();
+        return $this->sendResponse('brands', $brands, 'All Brand');
     }
 
     /**
@@ -31,8 +31,8 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasFile('slider_image')) {
-            $uploadImage = $request->file('slider_image');
+        if($request->hasFile('brand_image')) {
+            $uploadImage = $request->file('brand_image');
             $nameImage   = time() . '.' . $uploadImage->getClientOriginalExtension();
             $direction   = public_path('image/');
             $uploadImage->move($direction , $nameImage);
@@ -41,8 +41,8 @@ class SliderController extends Controller
             $request['image'] = $pathImage;
         }
         try {
-            Slider::create($request->all());
-                return $this->sendSuccess('added slider successfully');
+            Brand::create($request->all());
+                return $this->sendSuccess('added brand successfully');
         } catch (\Exception $ex) {
             return $this->sendError($ex->getMessage());
         }
@@ -57,25 +57,21 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $slider = Slider::findOrFail($id);
-        if($request->hasFile('slider_image')) {
-            $uploadedImage = $request->file('slider_image');
+        $brand = Brand::findOrFail($id);
+        if($request->hasFile('brand_image')) {
+            $uploadedImage = $request->file('brand_image');
             $imageName     = time() . '.' . $uploadedImage->getClientOriginalExtension();
             $direction     = public_path('/image');
             $uploadedImage->move($direction, $imageName);
             $imagePath     = '/image/' . $imageName;
 
-            if(\File::exists(public_path($slider->image))) {
-                \File::delete(public_path($slider->image));
+            if(\File::exists(public_path($brand->image))) {
+                \File::delete(public_path($brand->image));
             }
             $request['image'] = $imagePath;
         }
-        try {
-            $slider->update($request->all());
-                return $this->sendSuccess('update slider successfully');
-        } catch (\Exception $ex) {
-            return $this->sendError($ex->getMessage());
-        }
+        $brand->update($request->all());
+            return $this->sendSuccess('update brand successfully');
     }
 
     /**
@@ -86,14 +82,15 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        $slider = Slider::findOrFail($id);
-        if(empty($slider)) {
-            return $this->sendError('Slider Not Found');
+        $brand = Brand::findOrFail($id);
+        if(empty($brand)) {
+            return $this->sendError('Brand Not Found');
         }
         try{
-            $slider->delete();
-            return $this->sendSuccess('delete slider successfully');
-        } catch (\Exception $ex) {
+            $brand->delete();
+            return $this->sendSuccess('delete brand successfully');
+        }
+        catch(\Exception $ex) {
             return $this->sendError($ex->getMessage());
         }
     }

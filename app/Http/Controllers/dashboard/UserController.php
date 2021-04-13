@@ -43,6 +43,13 @@ class UserController extends Controller
             return redirect()->route('user.index')->with('success', __('message.add_success'));
     }
 
+
+    public function userOrders($id) {
+        $user = User::find($id);
+        $orders = $user->orders;
+        return $this->sendResponse('orders', $orders);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -51,7 +58,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $orders = $user->orders;
+        return view('dashboard.user.order', compact('orders'));
     }
 
     /**
