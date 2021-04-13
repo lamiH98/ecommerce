@@ -19,7 +19,6 @@ class CreateSlidersTable extends Migration
             $table->string('title');
             $table->string('subtitle');
             $table->string('title_ar');
-            $table->string('subtitle');
             $table->string('subtitle_ar');
             $table->timestamps();
         });
