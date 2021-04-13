@@ -110,6 +110,30 @@
             </div>
         </li>
 
+        {{-- Coupon Link --}}
+        <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-users"></i><span class="m-menu__link-text">@lang('aside-menu.coupons')</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
+            <div class="m-menu__submenu " m-hidden-height="80" style="display: none; overflow: hidden;"><span class="m-menu__arrow"></span>
+                <ul class="m-menu__subnav">
+                    <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true"><span class="m-menu__link"><span class="m-menu__link-text">@lang('aside-menu.coupons')</span></span></li>
+                    <li class="m-menu__item " aria-haspopup="true"><a href="{{ route('coupon.index') }}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">@lang('aside-menu.coupons')</span></a></li>
+                    <li class="m-menu__item " aria-haspopup="true"><a href="{{ route('coupon.create') }}" class="m-menu__link "><i class="m-menu__link-bullet m-menu__link-bullet--dot"><span></span></i><span class="m-menu__link-text">@lang('aside-menu.add_coupon')</span></a></li>
+                </ul>
+            </div>
+        </li>
+
+        {{-- Order Link --}}
+        <li class="m-menu__item  m-menu__item--active" aria-haspopup="true">
+            <a href="{{ route('order.index') }}" class="m-menu__link ">
+                <i class="m-menu__link-icon flaticon-line-graph"></i>
+                <span class="m-menu__link-title">
+                    <span class="m-menu__link-wrap">
+                        <span class="m-menu__link-text">@lang('aside-menu.orders')</span>
+                        <span class="m-menu__link-badge"><span class="m-badge m-badge--danger">2</span></span>
+                    </span>
+                </span>
+            </a>
+        </li>
+
         {{-- Role Link --}}
         <li class="m-menu__item m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover"><a href="javascript:;" class="m-menu__link m-menu__toggle"><i class="m-menu__link-icon flaticon-users"></i><span class="m-menu__link-text">@lang('aside-menu.roles')</span><i class="m-menu__ver-arrow la la-angle-right"></i></a>
             <div class="m-menu__submenu " m-hidden-height="80" style="display: none; overflow: hidden;"><span class="m-menu__arrow"></span>

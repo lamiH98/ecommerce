@@ -1,14 +1,14 @@
 @extends('dashboard.layout.master_layout')
 
 @section('title')
-    My Profile
+    @lang('profile.my_profile')
 @endsection
 
 @section('subtitle')
     <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
         <li class="m-nav__item m-nav__item--home"><a href="{{ route('dashboard.index') }}" class="m-nav__link m-nav__link--icon"><i class="m-nav__link-icon la la-home"></i></a></li>
         <li class="m-nav__separator">-</li>
-        <li class="m-nav__item"><a href="" class="m-nav__link"><span class="m-nav__link-text">My Profile</span></a></li>
+        <li class="m-nav__item"><a href="" class="m-nav__link"><span class="m-nav__link-text">@lang('profile.my_profile')</span></a></li>
     </ul>
 @endsection
 
@@ -17,7 +17,7 @@
         <div class="m-subheader ">
             <div class="d-flex align-items-center">
                 <div class="mr-auto">
-                    <h3 class="m-subheader__title ">My Profile</h3>
+                    <h3 class="m-subheader__title ">@lang('profile.my_profile')</h3>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                         <div class="m-portlet__body">
                             <div class="m-card-profile">
                                 <div class="m-card-profile__title m--hide">
-                                        My Profile
+                                    @lang('profile.my_profile')
                                 </div>
                                 <div class="m-card-profile__pic">
                                     <div class="m-card-profile__pic-wrapper">
@@ -53,7 +53,7 @@
                                     <li class="nav-item m-tabs__item">
                                         <a class="nav-link m-tabs__link active show" data-toggle="tab" href="#m_user_profile_tab_1" role="tab" aria-selected="true">
                                             <i class="flaticon-share m--hide"></i>
-                                            Update My Profile
+                                            @lang('profile.update_profile')
                                         </a>
                                     </li>
                                 </ul>
@@ -71,26 +71,26 @@
 
                                         <div class="form-group m-form__group row">
                                             <div class="col-10 ml-auto">
-                                                <h3 class="m-form__section">Personal Details</h3>
+                                                <h3 class="m-form__section">@lang('profile.personal_details')</h3>
                                             </div>
                                         </div>
 
                                         <div class="form-group m-form__group row">
-                                            <label for="example-text-input" class="col-2 col-form-label">Name</label>
+                                            <label for="example-text-input" class="col-2 col-form-label">@lang('profile.name')</label>
                                             <div class="col-7">
                                                 <input class="form-control m-input" value="{{ $admin->name }}" type="text" name="name" id="name">
                                             </div>
                                         </div>
 
                                         <div class="form-group m-form__group row">
-                                            <label for="example-text-input" class="col-2 col-form-label">Email</label>
+                                            <label for="example-text-input" class="col-2 col-form-label">@lang('profile.email')</label>
                                             <div class="col-7">
                                                 <input class="form-control m-input" value="{{ $admin->email }}" type="email" name="email" id="email">
                                             </div>
                                         </div>
 
                                         <div class="form-group m-form__group row">
-                                            <label for="example-text-input" class="col-2 col-form-label">كلمة المرور</label>
+                                            <label for="example-text-input" class="col-2 col-form-label">@lang('profile.password')</label>
                                             <div class="col-7">
                                                 <input class="form-control m-input" type="password" name="password" id="password">
                                             </div>
@@ -100,10 +100,10 @@
                                     <div class="m-portlet__foot m-portlet__foot--fit">
                                         <div class="m-form__actions">
                                             <div class="row">
-                                                <div class="col-2">
+                                                <div class="col-4">
                                                 </div>
-                                                <div class="col-7">
-                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">Update</button>&nbsp;&nbsp;
+                                                <div class="col-6">
+                                                    <button type="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">@lang('profile.update')</button>&nbsp;&nbsp;
                                                 </div>
                                             </div>
                                         </div>
