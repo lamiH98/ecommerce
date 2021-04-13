@@ -3,10 +3,9 @@
 Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 
-Route::group(['prefix' => 'dashboard' , 'namespace' => 'dashboard' , 'middleware' => 'auth:admin'], function () {
+Route::group(['prefix' => 'dashboard' , 'namespace' => 'Dashboard' , 'middleware' => 'auth:admin'], function () {
     // Route Dashboard
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
-//     Route::get('/', [DashboardController::class, 'index']);
 
     // Route Admin
     Route::resource('admin', 'AdminController');
@@ -51,6 +50,16 @@ Route::group(['prefix' => 'dashboard' , 'namespace' => 'dashboard' , 'middleware
     Route::resource('slider', 'SliderController');
     Route::get('slider/destroy/{id}', 'SliderController@destroy')->name('slider.destroy');
     Route::post('slider/MultiDestroy', 'SliderController@Multidestroy')->name('slider.Multidestroy');
+
+    // Route Coupon
+    Route::resource('coupon', 'CouponController');
+    Route::get('coupon/destroy/{id}', 'CouponController@destroy')->name('coupon.destroy');
+    Route::post('coupon/MultiDestroy', 'CouponController@Multidestroy')->name('coupon.Multidestroy');
+
+    // Route Coupon
+    Route::resource('order', 'OrderController');
+    Route::get('order/destroy/{id}', 'OrderController@destroy')->name('order.destroy');
+    Route::post('order/MultiDestroy', 'OrderController@Multidestroy')->name('order.Multidestroy');
 
     // Route Product
     Route::resource('product', 'ProductController');

@@ -17,22 +17,45 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function() {
 
     // Categories
-    Route::get('categories', 'CategoriesController@index');
-    Route::get('category/{id}', 'CategoriesController@getCategoryById');
-    Route::post('category', 'CategoriesController@store');
+    Route::resource('categories', 'CategoriesController');
+    Route::get('getChildCategory/{id}', 'CategoriesController@getChildCategory');
 
     // Products
-    Route::get('products', 'ProductController@index');
+    Route::resource('products', 'ProductController');
 
     // Sliders
-    Route::get('sliders', 'SliderController@index');
+    Route::resource('sliders', 'SliderController');
+
+    // Brands
+    Route::resource('brands', 'BrandController');
+
+    // Colors
+    Route::resource('colors', 'ColorController');
+
+    // Sizes
+    Route::resource('sizes', 'SizeController');
+
+    // Coupons
+    Route::resource('coupons', 'CouponController');
+
+    // Addresses
+    Route::resource('address', 'AddressController');
+
+    // Orders
+    Route::resource('orders', 'OrderController');
+    Route::put('getOrderStatus/{id}', 'OrderController@changeOrderStatus');
+    Route::get('getOrderProducts/{id}', 'OrderController@getOrderProducts');
+    Route::get('userOrders/{id}', 'OrderController@userOrders');
 
     Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
         Route::post('login', 'AuthController@login');
         Route::post('logout','AuthController@logout')->middleware(['auth.guard:admin-api']);
     });
 
+    // Users
     Route::group(['prefix' => 'user','namespace'=>'User'],function (){
+        Route::resource('users', 'AuthController');
+        Route::get('userAddress/{id}', 'AuthController@userAddress');
         Route::post('login','AuthController@Login') ;
         Route::post('register','AuthController@register') ;
     });
