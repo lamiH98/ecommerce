@@ -20,7 +20,7 @@ class CategoriesController extends Controller
     }
 
     public function getChildCategory($id) {
-        $categories = Category::where('parent_id', $id)->get();
+        $categories = Category::with('subcategory')->where('parent_id', $id)->get();
         return $this->sendResponse('categories', $categories);
     }
 
