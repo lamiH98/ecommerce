@@ -14,8 +14,8 @@ class CategoriesController extends Controller
     use GeneralTrait;
 
     public function index() {
-//         $categories = Category::where('parent_id', null)->get();
-        $categories = Category::with('subcategory')->where('parent_id', null)->get();
+        $categories = Category::with('subcategory')->get();
+//         $categories = Category::with('subcategory')->where('parent_id', null)->get();
         return $this->sendResponse('categories', $categories);
     }
 
