@@ -15,7 +15,7 @@ class CategoriesController extends Controller
 
     public function index() {
 //         $categories = Category::where('parent_id', null)->get();
-        $categories = Category::where('parent_id', null)->with('subcategory')->get();
+        $categories = Category::with('subcategory')->where('parent_id', null)->get();
         return $this->sendResponse('categories', $categories);
     }
 
