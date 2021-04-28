@@ -55,7 +55,7 @@ class AuthController extends Controller
             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
 
             if (!$token)
-                return $this->returnError('E001', 'بيانات الدخول غير صحيحة');
+                return response()->json('status', 'بيانات الدخول غير صحيحة');
 
             $user = Auth::guard('user-api')->user();
             $user->api_token = $token;
@@ -90,7 +90,7 @@ class AuthController extends Controller
             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
 
             if (!$token)
-                return $this->returnError('E001', 'بيانات الدخول غير صحيحة');
+                return response()->json('status', 'بيانات الدخول غير صحيحة');
 
             $user = Auth::guard('user-api')->user();
             $user->api_token = $token;
@@ -110,11 +110,11 @@ class AuthController extends Controller
             try {
                 JWTAuth::setToken($token)->invalidate(); //logout
             }catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
-                return  $this -> returnError('','some thing went wrongs');
+                return response()->json('status', 'some thing went wrongs');
             }
             return $this->returnSuccessMessage('Logged out successfully');
         }else{
-            $this -> returnError('','some thing went wrongs');
+            return response()->json('status', 'some thing went wrongs');
         }
     }
 
