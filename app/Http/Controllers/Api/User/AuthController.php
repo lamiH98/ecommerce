@@ -60,10 +60,10 @@ class AuthController extends Controller
             $user = Auth::guard('user-api')->user();
             $user->api_token = $token;
             //return token
-            return $this->returnData('user', $user);  //return json response
+            return $this->sendResponse('user', $user, 'User');  //return json response
 
         } catch (\Exception $ex) {
-            return $this->returnError($ex->getCode(), $ex->getMessage());
+            return response()->json($ex->getMessage());
         }
     }
 
@@ -84,17 +84,28 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password)
             ]);
-            $user = User::first();
-            $token = JWTAuth::fromUser($user);
-            // return $this->returnData('user', $token);
-            return response()->json(compact('token'));
+
+            $credentials = $request->only(['email', 'password']);
+
+            $token = Auth::guard('user-api')->attempt($credentials);  //generate token
+
+            if (!$token)
+                return $this->returnError('E001', 'بيانات الدخول غير صحيحة');
+
+            $user = Auth::guard('user-api')->user();
+            $user->api_token = $token;
+
+            // $user = User::first();
+            // $token = JWTAuth::fromUser($user);
+            // return $this->sendResponse('user', $user, 'User');
+            return $this->sendResponse('user', $user, 'User');  //return json response
         } catch (\Exception $ex) {
-            return $this->returnError($ex->getCode(), $ex->getMessage());
+            return response()->json($ex->getMessage());
         }
     }
 
     public function logout(Request $request) {
-        $token = $request -> header('auth-token');
+        $token = $request->header('auth-token');
         if($token){
             try {
                 JWTAuth::setToken($token)->invalidate(); //logout
