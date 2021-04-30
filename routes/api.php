@@ -61,7 +61,7 @@ Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function() {
     });
 
 
-    Route::group(['prefix' => 'user' ,'middleware' => 'auth.guard:user-api'],function (){
+    Route::group(['prefix' => 'user'],function (){
         Route::post('profile', function(){
             return \Auth::user();
         });
