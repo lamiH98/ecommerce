@@ -36,11 +36,12 @@
                             </th>
                             <th>@lang('order.index.id')</th>
                             <th>@lang('order.index.name')</th>
-                            <th>@lang('order.index.address')</th>
-                            <th>@lang('order.index.subtotal')</th>
-                            <th>@lang('order.index.tax')</th>
+                            <th>@lang('order.index.email')</th>
+                            <th>@lang('order.index.city')</th>
+                            <th>@lang('order.index.discount_code')</th>
+                            <th>@lang('order.index.discount')</th>
                             <th>@lang('order.index.total')</th>
-                            <th>@lang('order.index.status')</th>
+                            <th>@lang('order.index.newTotal')</th>
                             <th>@lang('order.index.created_at')</th>
                             <th>@lang('order.index.actions')</th>
                         </tr>
@@ -56,11 +57,12 @@
                                 </td>
                                 <td>{{ $order->id }}</td>
                                 <td>{{ $order->name }}</td>
-                                <td>{{ $order->address }}</td>
-                                <td>{{ $order->subtotal }}</td>
-                                <td>{{ $order->tax }}</td>
+                                <td>{{ $order->email }}</td>
+                                <td>{{ $order->city }}</td>
+                                <td>{{ $order->discount_code }}</td>
+                                <td>{{ $order->discount }}</td>
                                 <td>{{ $order->total }}</td>
-                                <td>{{ $order->status }}</td>
+                                <td>{{ $order->newTotal }}</td>
                                 <td>{{ $order->created_at }}</td>
                                 <td nowrap="">
                                     <a href="{{ route('order.edit', $order->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="edit">
