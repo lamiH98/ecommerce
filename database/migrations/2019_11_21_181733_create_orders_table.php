@@ -22,19 +22,14 @@ class CreateOrdersTable extends Migration
 
             $table->string('name');
             $table->string('email');
-            $table->string('address');
             $table->string('city');
-            $table->string('province');
-            $table->string('status');
-            $table->string('postalcode');
+            $table->string('neighourhood');
+            $table->string('street');
             $table->string('phone');
-            $table->string('name_on_card');
             $table->string('discount')->default(0);
             $table->string('discount_code')->nullable();
-            $table->string('subtotal');
-            $table->string('tax');
+            $table->string('newTotal');
             $table->string('total');
-            $table->string('payment_geteway')->default('stripe');
             $table->string('error')->nullable();
 
             $table->timestamps();
