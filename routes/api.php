@@ -40,6 +40,9 @@ Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function() {
 
     // Addresses
     Route::resource('address', 'AddressController');
+    
+    // Checkout
+    Route::resource('checkout', 'CheckoutController');
 
     // Orders
     Route::resource('orders', 'OrderController');
