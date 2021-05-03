@@ -43,7 +43,7 @@ class CheckoutController extends Controller
 
             return $this->sendSuccess('تم عملية الإضافة بنجاح');
         } catch (CardErrorException $e) {
-            $this->addToOrdersTables($request, $e->getMessage());
+            $this->addToOrdersTable($request, $e->getMessage());
             return $this->sendSuccess('يوجد خلل');
         }
     }
