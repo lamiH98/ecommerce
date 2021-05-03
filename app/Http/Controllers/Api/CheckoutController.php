@@ -34,6 +34,7 @@ class CheckoutController extends Controller
         //     return $item->name.', '.$item->quantity;
         // })->values()->toJson();
 
+        return $this->sendResponse('brands', $request->all(), 'All Brand');
         try {
 
             // Insert into orders table & Insert into order_product table
