@@ -43,7 +43,7 @@ class CheckoutController extends Controller
             // Decrease the quantities of all the products in the cart
 //             $this->decreaseQuantities($request);
 
-            return $this->sendSuccess('تم عملية الإضافة بنجاح');
+            return $this->sendResponse('brands', 'success', 'All Brand');
         } catch (CardErrorException $e) {
             $this->addToOrdersTable($request, $e->getMessage());
             return $this->sendResponse('brands', $e, 'All Brand');
