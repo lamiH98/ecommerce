@@ -23,7 +23,7 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-           dd($request->all());
+        return $this->sendResponse('brands', $request->all(), 'All Brand');
         // Check race condition when there are less item available to purchase
 //         if($this->productAreNotLongerAvailable($request)) {
 //             return $this->sendError('product Are Not Longer Available');
