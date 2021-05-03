@@ -23,29 +23,7 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        // Check race condition when there are less item available to purchase
-        if($this->productAreNotLongerAvailable($request)) {
-            return $this->sendError('product Are Not Longer Available');
-        }
-
-        // dd($request->user_id);
-        // $contents = $request->cart->map(function ($item) {
-        //     return $item->name.', '.$item->quantity;
-        // })->values()->toJson();
-
-        try {
-
-            // Insert into orders table & Insert into order_product table
-            $this->addToOrdersTable($request, null);
-
-            // Decrease the quantities of all the products in the cart
-            $this->decreaseQuantities($request);
-
-            return $this->sendSuccess('تم عملية الإضافة بنجاح');
-        } catch (CardErrorException $e) {
-            $this->addToOrdersTable($request, $e->getMessage());
-            return $this->sendSuccess('يوجد خلل');
-        }
+        return $this->sendResponse('brands', $request->all(), 'All Brand');
     }
 
     public function addToOrdersTable($request, $error) {
