@@ -23,7 +23,7 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->sendResponse('brands', $request->all(), 'All Brand');
+        
         // Check race condition when there are less item available to purchase
 //         if($this->productAreNotLongerAvailable($request)) {
 //             return $this->sendError('product Are Not Longer Available');
@@ -45,7 +45,7 @@ class CheckoutController extends Controller
             return $this->sendSuccess('تم عملية الإضافة بنجاح');
         } catch (CardErrorException $e) {
             $this->addToOrdersTable($request, $e->getMessage());
-            return $this->sendSuccess('يوجد خلل');
+            return $this->sendResponse('brands', $e, 'All Brand');
         }
     }
 
