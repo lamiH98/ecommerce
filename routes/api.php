@@ -60,8 +60,9 @@ Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function() {
     Route::group(['prefix' => 'user','namespace'=>'User'],function (){
         Route::resource('users', 'AuthController');
         Route::get('userAddress/{id}', 'AuthController@userAddress');
-        Route::post('login','AuthController@Login') ;
-        Route::post('register','AuthController@register') ;
+        Route::post('login','AuthController@Login');
+        Route::post('register','AuthController@register');
+        Route::post('getUser', 'AuthController@getUser');
     });
 
 
