@@ -25,9 +25,9 @@ class CheckoutController extends Controller
     {
         
         // Check race condition when there are less item available to purchase
-//         if($this->productAreNotLongerAvailable($request)) {
-//             return $this->sendError('product Are Not Longer Available');
-//         }
+        if($this->productAreNotLongerAvailable($request)) {
+            return $this->sendError('product Are Not Longer Available');
+        }
 
         // dd($request->user_id);
         // $contents = $request->cart->map(function ($item) {
@@ -41,7 +41,7 @@ class CheckoutController extends Controller
             $this->addToOrdersTable($request, null);
 
             // Decrease the quantities of all the products in the cart
-//             $this->decreaseQuantities($request);
+            $this->decreaseQuantities($request);
 
             return $this->sendResponse('brands', 'success', 'All Brand');
         } catch (CardErrorException $e) {
