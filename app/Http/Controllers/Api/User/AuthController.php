@@ -32,6 +32,11 @@ class AuthController extends Controller
         $userAddress = $user->Address;
         return $this->sendResponse('userAddress', $userAddress);
     }
+    
+    public function getUser() {
+        $user = Auth::user();
+        return $this->sendResponse('user', $user);
+    }
 
     public function login(Request $request) {
 
