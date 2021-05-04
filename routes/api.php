@@ -67,9 +67,7 @@ Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function() {
 
 
     Route::group(['prefix' => 'user'], function (){
-        Route::post('profile', function(){
-            return \Auth::user();
-        });
+        Route::post('profile', 'AuthController@getUser');
     });
 
 });
