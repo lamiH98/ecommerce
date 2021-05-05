@@ -34,9 +34,8 @@ class AuthController extends Controller
     }
     
     public function getUser(Request $request) {
-        $user = Auth::user();
-        $header = $request->header();
-        return $this->sendResponse('user', $header);
+        $user = \Auth::user();
+        return $this->sendResponse('user', $user);
     }
 
     public function login(Request $request) {
