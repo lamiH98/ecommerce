@@ -68,7 +68,7 @@ Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function() {
 
     Route::group(['prefix' => 'user' ,'middleware' => 'auth.guards:user-api'], function (){
         Route::post('profile', function(){
-            $user = \Auth::user();
+            $user = \Auth::guard('user-api')->user();
             return response()->json($user , 200);
         });
     });
