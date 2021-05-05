@@ -36,7 +36,7 @@ class AuthController extends Controller
     public function getUser(Request $request) {
         $user = Auth::user();
         $header = $request->header('auth-token');
-        return $this->sendResponse('user', $user);
+        return $this->sendResponse('user', $header);
     }
 
     public function login(Request $request) {
