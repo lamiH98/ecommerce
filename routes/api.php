@@ -62,12 +62,15 @@ Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function() {
         Route::get('userAddress/{id}', 'AuthController@userAddress');
         Route::post('login','AuthController@Login');
         Route::post('register','AuthController@register');
-        Route::post('getUser', 'AuthController@getUser')->middleware('auth.guard:user-api');
+        Route::post('getUser', 'AuthController@getUser');
     });
 
 
-    Route::group(['prefix' => 'user' ,'middleware' => 'auth.guard:user-api', 'namespace'=>'User'], function (){
-        Route::post('profile', 'AuthController@getUser');
+    Route::group(['prefix' => 'user' ,'middleware' => 'auth.guard:user-api'], function (){
+        Route::post('profile', function(){
+            $user = \Auth::user();
+            return response()->json($user , 200);
+        });
     });
 
 });
