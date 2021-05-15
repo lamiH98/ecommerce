@@ -32,7 +32,7 @@ class OrderController extends Controller
 
     public function userOrders($id) {
         $user = User::find($id);
-        $orders = $user->orders;
+        $orders = $user->orders()->with('products')->get();
         return $this->sendResponse('orders', $orders);
     }
 
