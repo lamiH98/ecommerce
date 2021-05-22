@@ -22,6 +22,7 @@ class NotificationController extends Controller
     public function sendNotification(Request $request)
     {
         // return response()->json(['token saved successfully.']);
+        dd(User::all());
         $firebaseToken = User::whereNotNull('device_token')->pluck('device_token')->all();
 
         $SERVER_API_KEY = 'AAAAM3kucuE:APA91bGDK7CkPEs3WuY5jHdI9vEPKvpmpyjE7wg1POKvweri6ERX973mjrvHliJPHdr-aTJG-UzAJ9PAggC96oBWpkTOsH0gpqr18gqcNSvY82ZWzdkkcB0Dp8FALsUbMDc0vLwKz9oA';
