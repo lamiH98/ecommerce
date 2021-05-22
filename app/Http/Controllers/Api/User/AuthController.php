@@ -55,7 +55,7 @@ class AuthController extends Controller
 
             //login
 
-            $credentials = $request->only(['email', 'password']);
+            $credentials = $request->only(['email', 'password', 'device_token']);
 
             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
 
@@ -87,10 +87,11 @@ class AuthController extends Controller
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => bcrypt($request->password)
+                'password' => bcrypt($request->password),
+                'device_token' => $request->device_token
             ]);
 
-            $credentials = $request->only(['email', 'password']);
+            $credentials = $request->only(['email', 'password', 'device_token']);
 
             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
 
