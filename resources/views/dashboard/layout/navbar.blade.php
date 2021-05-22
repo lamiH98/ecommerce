@@ -19,6 +19,18 @@
             <h4 class="m-menu__section-text">@lang('aside-menu.featured')</h4>
             <i class="m-menu__section-icon flaticon-more-v2"></i>
         </li>
+        
+        <li class="m-menu__item  m-menu__item--active" aria-haspopup="true">
+            <a href="{{ route('notification.index') }}" class="m-menu__link ">
+                <i class="m-menu__link-icon flaticon-line-graph"></i>
+                <span class="m-menu__link-title">
+                    <span class="m-menu__link-wrap">
+                        <span class="m-menu__link-text">@lang('aside-menu.notifications')</span>
+                        <span class="m-menu__link-badge"><span class="m-badge m-badge--danger">2</span></span>
+                    </span>
+                </span>
+            </a>
+        </li>
 
         {{-- Admin Link --}}
         {{-- @if (auth('admin')->user()->can('browse admin')) --}}
