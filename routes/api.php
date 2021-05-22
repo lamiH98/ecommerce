@@ -44,6 +44,9 @@ Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function() {
     // Checkout
 //     Route::resource('checkout', 'CheckoutController');
     Route::post('checkout','CheckoutController@store');
+    // Notifications
+    Route::post('save-token','NotificationController@saveToken');
+    Route::post('send-notification','NotificationController@sendNotification');
 
     // Orders
     Route::resource('orders', 'OrderController');
