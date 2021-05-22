@@ -2,6 +2,7 @@
 
 return [
     'dashboard'         => 'dashboard',
+    'notifications'     => 'notifications',
     'featured'          => 'Featured',
     'admins'            => 'Admins',
     'add_admin'         => 'Add Admin',
