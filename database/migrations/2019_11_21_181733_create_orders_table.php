@@ -30,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->string('discount_code')->nullable();
             $table->string('newTotal');
             $table->string('total');
+            $table->string('status');
             $table->string('error')->nullable();
 
             $table->timestamps();
