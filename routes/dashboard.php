@@ -75,6 +75,11 @@ Route::group(['prefix' => 'dashboard' , 'namespace' => 'dashboard' , 'middleware
     // Route Cart
     Route::resource('cart', 'CartController');
     Route::get('cart/destroy/{id}', 'CartController@destroy')->name('cart.destroy');
+    
+    // notifications
+    Route::get('/push-notificaiton', 'NotificationController@index')->name('notification.index');
+    Route::post('save-token','NotificationController@saveToken')->name('save-token');
+    Route::post('send-notification','NotificationController@sendNotification')->name('send-notification');
 });
 
 Route::get('local/{lang?}', ['as' => 'local.change', 'uses' => 'Dashboard\LocalizationController@change']);
