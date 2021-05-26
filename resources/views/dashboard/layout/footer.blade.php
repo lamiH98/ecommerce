@@ -3,7 +3,11 @@
 		<div id="m_scroll_top" class="m-scroll-top">
             <i class="la la-arrow-up"></i>
         </div>
+<<<<<<< HEAD
         <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+=======
+	<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         <script src="{{ asset('dashboards/assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
         <script src="{{ asset('dashboards/assets/demo/default/base/scripts.bundle.js') }}" type="text/javascript"></script>
         <script src="{{ asset('dashboards/assets/vendors/custom/datatables/datatables.bundle.js') }}" type="text/javascript"></script>

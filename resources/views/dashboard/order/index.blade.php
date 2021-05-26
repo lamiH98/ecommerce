@@ -36,7 +36,11 @@
                             </th>
                             <th>@lang('order.index.id')</th>
                             <th>@lang('order.index.name')</th>
+<<<<<<< HEAD
                             <th>@lang('order.index.status')</th>
+=======
+                            <th>@lang('order.index.email')</th>
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
                             <th>@lang('order.index.city')</th>
                             <th>@lang('order.index.discount_code')</th>
                             <th>@lang('order.index.discount')</th>
@@ -57,7 +61,11 @@
                                 </td>
                                 <td>{{ $order->id }}</td>
                                 <td>{{ $order->name }}</td>
+<<<<<<< HEAD
                                 <td>{{ $order->status }}</td>
+=======
+                                <td>{{ $order->email }}</td>
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
                                 <td>{{ $order->city }}</td>
                                 <td>{{ $order->discount_code }}</td>
                                 <td>{{ $order->discount }}</td>

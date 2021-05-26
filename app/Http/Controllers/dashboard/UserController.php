@@ -43,10 +43,17 @@ class UserController extends Controller
             return redirect()->route('user.index')->with('success', __('message.add_success'));
     }
 
+<<<<<<< HEAD
     public function userOrders($id) {
         $user = User::find($id);
         $orders = $user->orders()->with('products')->get();
         // $orders = $user->orders;
+=======
+
+    public function userOrders($id) {
+        $user = User::find($id);
+        $orders = $user->orders;
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         return $this->sendResponse('orders', $orders);
     }
 

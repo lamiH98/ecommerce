@@ -60,8 +60,12 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
+<<<<<<< HEAD
         $order = Order::findOrFail($id);
         return  view('dashboard.order.edit', compact('order'));
+=======
+        //
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
     }
 
     /**
@@ -73,8 +77,12 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
         Order::findOrFail($id)->update(['status' => $request->status]);
             return redirect()->route('order.index')->with('success', __('message.update_success'));
+=======
+        //
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
     }
 
     /**

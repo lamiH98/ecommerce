@@ -75,12 +75,19 @@ Route::group(['prefix' => 'dashboard' , 'namespace' => 'Dashboard' , 'middleware
     // Route Cart
     Route::resource('cart', 'CartController');
     Route::get('cart/destroy/{id}', 'CartController@destroy')->name('cart.destroy');
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
     // notifications
     Route::get('/push-notificaiton', 'NotificationController@index')->name('notification.index');
     Route::post('save-token','NotificationController@saveToken')->name('save-token');
     Route::post('send-notification','NotificationController@sendNotification')->name('send-notification');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
 });
 
 Route::get('local/{lang?}', ['as' => 'local.change', 'uses' => 'Dashboard\LocalizationController@change']);

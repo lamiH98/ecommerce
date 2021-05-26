@@ -15,7 +15,16 @@ class CategoriesController extends Controller
 
     public function index() {
         $categories = Category::where('parent_id', null)->get();
+<<<<<<< HEAD
         // $categories = Category::with('subcategory')->get();
+=======
+//         $categories = Category::with('subcategory')->where('parent_id', null)->get();
+        return $this->sendResponse('categories', $categories);
+    }
+
+    public function getChildCategory($id) {
+        $categories = Category::with('subcategory')->where('parent_id', $id)->get();
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         return $this->sendResponse('categories', $categories);
     }
 
@@ -40,12 +49,18 @@ class CategoriesController extends Controller
 
             $request['image'] = $pathImage;
         }
+<<<<<<< HEAD
         try {
             Category::create($request->all());
                 return $this->sendSuccess('added category successfully');
         } catch (\Exception $ex) {
             return $this->sendError($ex->getMessage());
         }
+=======
+
+        Category::create($request->all());
+            return $this->returnSuccessMessage('تم عملية الإضافة بنجاح');
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
     }
 
     public function changeStatus(Request $request) {

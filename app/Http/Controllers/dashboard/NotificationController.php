@@ -57,7 +57,11 @@ class NotificationController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
         $response = curl_exec($ch);
+<<<<<<< HEAD
         // return $response;
+=======
+//         return $response;
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         return redirect()->back()->with('success', __('message.add_success'));
     }
 }

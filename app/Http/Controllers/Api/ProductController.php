@@ -24,7 +24,12 @@ class ProductController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         $products = Product::with('category', 'sizes', 'colors', 'brand', 'reviews', 'images')->get();
+=======
+        // $products = Product::all();
+        $products = Product::with('category', 'sizes', 'colors', 'brands')->get();
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         // $productColor = Product::find(3)->colors;
         return $this->sendResponse('products', $products, 'All Product');
     }
@@ -51,6 +56,10 @@ class ProductController extends Controller
         $product = Product::create($request->all());
         $product->colors()->attach($request->color);
         $product->sizes()->attach($request->size);
+<<<<<<< HEAD
+=======
+        $product->brands()->attach($request->brand);
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         try {
             return $this->sendSuccess('added product successfully');
         } catch (\Exception $ex) {
@@ -113,6 +122,10 @@ class ProductController extends Controller
         $request['product_new']  = $request['product_new'] ? 1 : 0;
         $product->colors()->sync($request->color);
         $product->sizes()->sync($request->size);
+<<<<<<< HEAD
+=======
+        $product->brands()->sync($request->brand);
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         try {
             $product->update($request->all());
                 return $this->sendSuccess('update size successfully');
@@ -132,6 +145,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         if(empty($product)) {
             return $this->sendError('Product Not Found');
+<<<<<<< HEAD
         }
         try{
             $product->delete();
@@ -166,6 +180,14 @@ class ProductController extends Controller
             $products->filter(function($product){
                 return $product->reviews->avg('rating') == $request->low_price;
             });
+=======
+        }
+        try{
+            $product->delete();
+            return $this->sendSuccess('delete product successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         }
         return $this->sendResponse('products', $products->get());
     }

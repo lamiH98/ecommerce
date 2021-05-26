@@ -33,7 +33,10 @@ class OrderController extends Controller
     public function userOrders($id) {
         $user = User::find($id);
         $orders = $user->orders()->with('products')->get();
+<<<<<<< HEAD
         // $orders = $user->orders;
+=======
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         return $this->sendResponse('orders', $orders);
     }
 
@@ -53,6 +56,37 @@ class OrderController extends Controller
         }
     }
 
+<<<<<<< HEAD
+=======
+    public function changeOrderStatus(Request $request, $id) {
+        //validation
+        Order::where('id', $id)->update(['status' => $request->status]);
+        return $this->sendSuccess('updated order successfully');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
     /**
      * Update the specified resource in storage.
      *
@@ -62,8 +96,12 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
         Order::findOrFail($id)->update(['status' => $request->status]);
         return $this->sendSuccess('updated order successfully');
+=======
+        //
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
     }
 
     /**

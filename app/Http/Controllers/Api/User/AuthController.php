@@ -32,9 +32,15 @@ class AuthController extends Controller
         $userAddress = $user->Address;
         return $this->sendResponse('userAddress', $userAddress);
     }
+<<<<<<< HEAD
 
     public function getUser() {
         $user = Auth::guard('user-api')->user();
+=======
+    
+    public function getUser(Request $request) {
+        $user = Auth::guard('api')->user();
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         return $this->sendResponse('user', $user);
     }
 
@@ -48,12 +54,20 @@ class AuthController extends Controller
 
             $validator = Validator::make($request->all(), $rules);
             //login
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
             $credentials = $request->only(['email', 'password', 'device_token']);
 
             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
 
             if (!$token)
+<<<<<<< HEAD
                 return $this->sendError($token);
+=======
+                return response()->json('status', 'بيانات الدخول غير صحيحة');
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
 
             $user = Auth::guard('user-api')->user();
             $user->api_token = $token;
@@ -61,7 +75,11 @@ class AuthController extends Controller
             return $this->sendResponse('user', $user, 'User');  //return json response
 
         } catch (\Exception $ex) {
+<<<<<<< HEAD
             return sendError($ex->getMessage());
+=======
+            return response()->json($ex->getMessage());
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         }
     }
 
@@ -80,16 +98,30 @@ class AuthController extends Controller
                 'device_token' => $request->device_token
             ]);
 
+<<<<<<< HEAD
             $credentials = $request->only(['email', 'password']);
+=======
+            $credentials = $request->only(['email', 'password', 'device_token']);
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
 
             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
 
             if (!$token)
+<<<<<<< HEAD
                 return $this->returnError('E001', 'بيانات الدخول غير صحيحة');
+=======
+                return response()->json('status', 'بيانات الدخول غير صحيحة');
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
 
             $user = Auth::guard('user-api')->user();
             $user->api_token = $token;
 
+<<<<<<< HEAD
+=======
+            // $user = User::first();
+            // $token = JWTAuth::fromUser($user);
+            // return $this->sendResponse('user', $user, 'User');
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
             return $this->sendResponse('user', $user, 'User');  //return json response
         } catch (\Exception $ex) {
             return response()->json($ex->getMessage());
@@ -98,6 +130,7 @@ class AuthController extends Controller
 
     public function logout(Request $request) {
         $token = $request->header('auth-token');
+<<<<<<< HEAD
         if($token) {
             try {
                 JWTAuth::setToken($token)->invalidate(); //logout
@@ -107,6 +140,17 @@ class AuthController extends Controller
             return $this->returnSuccessMessage('Logged out successfully');
         } else {
             $this->returnError('','some thing went wrongs');
+=======
+        if($token){
+            try {
+                JWTAuth::setToken($token)->invalidate(); //logout
+            }catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
+                return response()->json('status', 'some thing went wrongs');
+            }
+            return $this->returnSuccessMessage('Logged out successfully');
+        }else{
+            return response()->json('status', 'some thing went wrongs');
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         }
     }
 

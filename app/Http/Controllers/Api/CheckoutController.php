@@ -23,7 +23,11 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         // Check race condition when there are less item available to purchase
         if($this->productAreNotLongerAvailable($request)) {
             return $this->sendError('product Are Not Longer Available');
@@ -34,6 +38,10 @@ class CheckoutController extends Controller
         //     return $item->name.', '.$item->quantity;
         // })->values()->toJson();
 
+<<<<<<< HEAD
+=======
+//         return $this->sendResponse('brands', $request->all(), 'All Brand');
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         try {
 
             // Insert into orders table & Insert into order_product table
@@ -42,10 +50,17 @@ class CheckoutController extends Controller
             // Decrease the quantities of all the products in the cart
             $this->decreaseQuantities($request);
 
+<<<<<<< HEAD
             return $this->sendSuccess('تم عملية الإضافة بنجاح');
         } catch (CardErrorException $e) {
             $this->addToOrdersTable($request, $e->getMessage());
             return $this->sendSuccess('يوجد خلل');
+=======
+            return $this->sendResponse('brands', 'success', 'All Brand');
+        } catch (CardErrorException $e) {
+            $this->addToOrdersTable($request, $e->getMessage());
+            return $this->sendResponse('brands', $e, 'All Brand');
+>>>>>>> 2381c3773d64648a3e592ce3dad493e5e041b35f
         }
     }
 
