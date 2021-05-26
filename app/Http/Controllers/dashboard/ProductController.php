@@ -61,7 +61,6 @@ class ProductController extends Controller
         $product = Product::create($request->all());
         $product->colors()->attach($request->color);
         $product->sizes()->attach($request->size);
-        $product->brands()->attach($request->brand);
         if($product) {
             return redirect()->back()->with('success',  __('message.add_success'));
         } else {
@@ -153,7 +152,6 @@ class ProductController extends Controller
         $request['product_new']  = $request['product_new'] ? 1 : 0;
         $product->colors()->sync($request->color);
         $product->sizes()->sync($request->size);
-        $product->brands()->sync($request->brand);
         $product->fill($request->all());
         $product->update();
             return redirect()->route('product.index')->with('success', __('message.update_success'));

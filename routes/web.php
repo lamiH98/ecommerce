@@ -16,4 +16,8 @@ Auth::routes();
 Route::get('/', 'design\HomeController@index')->name('index');
 Route::get('/product-details', 'design\HomeController@product_details')->name('product-details');
 
+Route::get('/push-notificaiton', 'NotificationController@index')->name('push-notificaiton');
+Route::post('save-token','NotificationController@saveToken')->name('save-token');
+Route::post('send-notification','NotificationController@sendNotification')->name('send-notification');
+
 Route::get('/home', 'HomeController@index')->name('home');

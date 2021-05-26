@@ -2,6 +2,7 @@
 
 return [
     'dashboard'         => 'dashboard',
+    'notifications'     => 'notifications',
     'featured'          => 'Featured',
     'admins'            => 'Admins',
     'add_admin'         => 'Add Admin',
@@ -19,6 +20,9 @@ return [
     'add_brand'         => 'Add Brand',
     'products'          => 'Products',
     'add_product'       => 'Add Product',
+    'coupons'           => 'Coupons',
+    'add_coupon'        => 'Add Coupon',
+    'orders'            => 'Orders',
     'roles'             => 'Roles',
     'add_role'          => 'Add Role',
     'setting'           => 'Setting',

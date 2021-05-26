@@ -16,6 +16,28 @@ class AuthController extends Controller
 
     use GeneralTrait;
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $users = User::all();
+        return $this->sendResponse('users', $users, 'All Users');
+    }
+
+    public function userAddress($id) {
+        $user = User::find($id);
+        $userAddress = $user->Address;
+        return $this->sendResponse('userAddress', $userAddress);
+    }
+
+    public function getUser() {
+        $user = Auth::guard('user-api')->user();
+        return $this->sendResponse('user', $user);
+    }
+
     public function login(Request $request) {
 
         try {
@@ -25,28 +47,21 @@ class AuthController extends Controller
             ];
 
             $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                $code = $this->returnCodeAccordingToInput($validator);
-                return $this->returnValidationError($code, $validator);
-            }
-
             //login
-
-            $credentials = $request->only(['email', 'password']);
+            $credentials = $request->only(['email', 'password', 'device_token']);
 
             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
 
             if (!$token)
-                return $this->returnError('E001', 'بيانات الدخول غير صحيحة');
+                return $this->sendError($token);
 
             $user = Auth::guard('user-api')->user();
             $user->api_token = $token;
             //return token
-            return $this->returnData('user', $user);  //return json response
+            return $this->sendResponse('user', $user, 'User');  //return json response
 
         } catch (\Exception $ex) {
-            return $this->returnError($ex->getCode(), $ex->getMessage());
+            return sendError($ex->getMessage());
         }
     }
 
@@ -58,35 +73,40 @@ class AuthController extends Controller
                 "password" => "required",
             ];
             $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                $code = $this->returnCodeAccordingToInput($validator);
-                return $this->returnValidationError($code, $validator);
-            }
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => bcrypt($request->password)
+                'password' => bcrypt($request->password),
+                'device_token' => $request->device_token
             ]);
-            $user = User::first();
-            $token = JWTAuth::fromUser($user);
-            // return $this->returnData('user', $token);
-            return response()->json(compact('token'));
+
+            $credentials = $request->only(['email', 'password']);
+
+            $token = Auth::guard('user-api')->attempt($credentials);  //generate token
+
+            if (!$token)
+                return $this->returnError('E001', 'بيانات الدخول غير صحيحة');
+
+            $user = Auth::guard('user-api')->user();
+            $user->api_token = $token;
+
+            return $this->sendResponse('user', $user, 'User');  //return json response
         } catch (\Exception $ex) {
-            return $this->returnError($ex->getCode(), $ex->getMessage());
+            return response()->json($ex->getMessage());
         }
     }
 
     public function logout(Request $request) {
-        $token = $request -> header('auth-token');
-        if($token){
+        $token = $request->header('auth-token');
+        if($token) {
             try {
                 JWTAuth::setToken($token)->invalidate(); //logout
             }catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
-                return  $this -> returnError('','some thing went wrongs');
+                return  $this->returnError('','some thing went wrongs');
             }
             return $this->returnSuccessMessage('Logged out successfully');
-        }else{
-            $this -> returnError('','some thing went wrongs');
+        } else {
+            $this->returnError('','some thing went wrongs');
         }
     }
 

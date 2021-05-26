@@ -97,15 +97,21 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <label class="col-form-label col-lg-2 col-sm-12">@lang('product.update.brands')</label>
-                                <div class="col-lg-4 col-md-9 col-sm-12">
-                                    <select class="form-control m-select2 m-input--air m-input--pill" id="m_select2_3" name="brand[]" multiple="multiple">
+                                <label for="type" class="col-lg-2 col-form-label">@lang('product.update.category'):</label>
+                                <div class="form-group m-form__group col-md-4">
+                                    <select class="form-control m-input m-input--air m-input--pill" name="category_id" id="category_id">
+                                        <option></option>
+                                        @foreach ($categories as $category)
+                                            <option {{$category->id == $product->category_id ? "selected" : ""}} value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <label for="type" class="col-lg-2 col-form-label">@lang('product.update.brands'):</label>
+                                <div class="form-group m-form__group col-md-4">
+                                    <select class="form-control m-input m-input--air m-input--pill" name="brand_id" id="brand_id">
+                                        <option></option>
                                         @foreach ($brands as $brand)
-                                            <option value="{{ $brand->id }}"
-                                                @foreach ($product->brands as $item)
-                                                    {{ $brand->id == $item->id ? "selected" : '' }}
-                                                @endforeach
-                                                >{{ $brand->brand }}</option>
+                                            <option {{$brand->id == $product->brand_id ? "selected" : ""}} value="{{ $brand->id }}">{{ $brand->brand }}</option>
                                         @endforeach
                                     </select>
                                 </div>

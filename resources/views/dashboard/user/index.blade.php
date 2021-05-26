@@ -73,6 +73,9 @@
                                 <a href="{{ route('user.edit', $user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">
                                     <i class="la la-edit"></i>
                                 </a>
+                                <a href="{{ route('user.show', $user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="show">
+                                    <i class="la la-eye"></i>
+                                </a>
                                 <a href="{{ route('user.destroy', $user->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill Confirm" title="Delete">
                                     <i class="la la-trash"></i>
                                 </a>

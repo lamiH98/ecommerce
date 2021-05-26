@@ -2,6 +2,7 @@
 
 return [
     'dashboard'         => 'لوحة التحكم',
+    'notifications'     => 'الإشعارات',
     'featured'          => 'الخصائص',
     'admins'            => 'المشرفين',
     'add_admin'         => 'إضافة مشرف جديد',
@@ -19,6 +20,9 @@ return [
     'add_brand'         => 'إضافة شركة جديدة',
     'products'          => 'المنتجات',
     'add_product'       => 'إضافة منتج جديد',
+    'coupons'           => 'الخصومات',
+    'add_coupon'        => 'إضافة خصم جديد',
+    'orders'            => 'الطلبيات',
     'roles'             => 'الصلاحيات',
     'add_role'          => 'إضافة صلاحية جديدة',
     'setting'           => 'الإعدادات',

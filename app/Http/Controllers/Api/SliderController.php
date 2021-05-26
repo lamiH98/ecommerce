@@ -20,7 +20,7 @@ class SliderController extends Controller
     public function index()
     {
         $sliders = Slider::all();
-        return $this->returnData('sliders', $sliders);
+        return $this->sendResponse('sliders', $sliders, 'all slider');
     }
 
     /**
@@ -29,7 +29,7 @@ class SliderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SliderRequest $request)
+    public function store(Request $request)
     {
         if($request->hasFile('slider_image')) {
             $uploadImage = $request->file('slider_image');
@@ -40,8 +40,12 @@ class SliderController extends Controller
 
             $request['image'] = $pathImage;
         }
-        Slider::create($request->all());
-            return redirect()->route('slider.index')->with('success', __('message.add_success'));
+        try {
+            Slider::create($request->all());
+                return $this->sendSuccess('added slider successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
+        }
     }
 
     /**
@@ -51,7 +55,7 @@ class SliderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SliderRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $slider = Slider::findOrFail($id);
         if($request->hasFile('slider_image')) {
@@ -66,9 +70,12 @@ class SliderController extends Controller
             }
             $request['image'] = $imagePath;
         }
-        $slider->fill($request->all());
-        $slider->update();
-            return redirect()->route('slider.index')->with('success', __('message.update_success'));
+        try {
+            $slider->update($request->all());
+                return $this->sendSuccess('update slider successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
+        }
     }
 
     /**
@@ -79,14 +86,15 @@ class SliderController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $slider = Slider::findOrFail($id);
-            $slider->delete();
-            return redirect()->back()->with('success', __('message.delete_success'));
+        $slider = Slider::findOrFail($id);
+        if(empty($slider)) {
+            return $this->sendError('Slider Not Found');
         }
-        catch(ModelNotFoundException $ModelNotFoundException) {
-
-            return redirect()->route('slider.index')->with('error', __('message.not_found'));
+        try{
+            $slider->delete();
+            return $this->sendSuccess('delete slider successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
         }
     }
 }

@@ -92,8 +92,11 @@ class ColorController extends Controller
      */
     public function destroy($id)
     {
+        $color = Color::findOrFail($id);
+        if(empty($color)) {
+            return redirect()->route('color.index')->with('error', __('message.not_found'));
+        }
         try{
-            $color = Color::findOrFail($id);
             $color->delete();
             return redirect()->back()->with('success',  __('message.delete_success'));
         }

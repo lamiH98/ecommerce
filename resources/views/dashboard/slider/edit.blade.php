@@ -82,7 +82,7 @@
                                 <div class="col-lg-2"></div>
                                 <div class="col-lg-6">
                                     <button type="submit" class="btn btn-primary">@lang('slider.update.update')</button>
-                                    <a href="{{ route('slider.index') }}" class="btn btn-secondary">@lang('slider.update.back')</button>
+                                    <a href="{{ route('slider.index') }}" class="btn btn-secondary">@lang('slider.update.back')</a>
                                 </div>
                             </div>
                         </div>

@@ -14,11 +14,22 @@ class CategoriesController extends Controller
     use GeneralTrait;
 
     public function index() {
-        $categories = Category::all();
-        return $this->returnData('categories', $categories);
+        $categories = Category::where('parent_id', null)->get();
+        // $categories = Category::with('subcategory')->get();
+        return $this->sendResponse('categories', $categories);
     }
 
-    public function store(CategoryRequest $request)
+    public function getChildCategory($id) {
+        $categories = Category::where('parent_id', $id)->get();
+        return $this->sendResponse('categories', $categories);
+    }
+
+    // public function getCategroyProducts($id) {
+    //     $products = Category::findOrFail($categoryId)->products;
+    //     return $this->sendResponse('products', $products);
+    // }
+
+    public function store(Request $request)
     {
         if($request->hasFile('category_image')) {
             $uploadImage = $request->file('category_image');
@@ -29,23 +40,18 @@ class CategoriesController extends Controller
 
             $request['image'] = $pathImage;
         }
-
-        Category::create($request->all());
-            return $this->returnSuccessMessage('تم عملية الإضافة بنجاح');
-    }
-
-    public function getCategoryById($id) {
-        $category = Category::findOrFail($id);
-        // $category = Category::where('id', '>', $id)->get();
-        if (!$category)
-            return $this->returnError('001', 'هذا القسم غير موجد');
-        return $this->returnData('categroy', $category);
+        try {
+            Category::create($request->all());
+                return $this->sendSuccess('added category successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
+        }
     }
 
     public function changeStatus(Request $request) {
        //validation
         Category::where('id', $request->id)->update(['active' => $request->active]);
-        return $this->returnSuccessMessage('تم تغيير الحاله بنجاح');
+        return $this->sendResponse('تم تغيير الحاله بنجاح');
     }
 
 }

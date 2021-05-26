@@ -24,22 +24,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category', 'sizes', 'colors', 'brands')->get();
-        return $this->returnData('products', $products);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $sizes      = Size::all();
-        $colors     = Color::all();
-        $brands     = Brand::all();
-        $categories = Category::all();
-        return  view('dashboard.product.create', compact('sizes' , 'colors' , 'categories', 'brands'));
+        $products = Product::with('category', 'sizes', 'colors', 'brand', 'reviews', 'images')->get();
+        // $productColor = Product::find(3)->colors;
+        return $this->sendResponse('products', $products, 'All Product');
     }
 
     /**
@@ -64,26 +51,12 @@ class ProductController extends Controller
         $product = Product::create($request->all());
         $product->colors()->attach($request->color);
         $product->sizes()->attach($request->size);
-        $product->brands()->attach($request->brand);
-        if($product) {
-            return redirect()->back()->with('success',  __('message.add_success'));
-        } else {
-            return back()->with('error', 'That Is Error');
+        try {
+            return $this->sendSuccess('added product successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $product = Product::findOrFail($id);
-        return view('dashboard.product.show', compact('product'));
-    }
-
 
     public function upload(Request $request, Product $product) {
         if($request->hasFile('file')) {
@@ -116,22 +89,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $sizes       = Size::all();
-        $colors      = Color::all();
-        $brands      = Brand::all();
-        $categories  = Category::all();
-        $product     = Product::findOrFail($id);
-        return  view('dashboard.product.edit', compact('product', 'sizes', 'colors', 'categories', 'brands'));
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -156,10 +113,12 @@ class ProductController extends Controller
         $request['product_new']  = $request['product_new'] ? 1 : 0;
         $product->colors()->sync($request->color);
         $product->sizes()->sync($request->size);
-        $product->brands()->sync($request->brand);
-        $product->fill($request->all());
-        $product->update();
-            return redirect()->route('product.index')->with('success', __('message.update_success'));
+        try {
+            $product->update($request->all());
+                return $this->sendSuccess('update size successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
+        }
     }
 
     /**
@@ -170,30 +129,44 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $product = Product::findOrFail($id);
-            $product->delete();
-            return redirect()->back()->with('success', __('message.delete_success'));
+        $product = Product::findOrFail($id);
+        if(empty($product)) {
+            return $this->sendError('Product Not Found');
         }
-        catch(ModelNotFoundException $ModelNotFoundException) {
-
-            return redirect()->back()->with('error',  __('message.not_found'));
+        try{
+            $product->delete();
+            return $this->sendSuccess('delete product successfully');
+        } catch (\Exception $ex) {
+            return $this->sendError($ex->getMessage());
         }
     }
 
-    public function Multidestroy(Request $request) {
-
-        try{
-            $multiDeletes = $request->input('MultDelete');
-            if($multiDeletes == null) {
-                return redirect()->back()->with('error' , __('message.select_item'));
-            }
-            $count = count($multiDeletes);
-            Product::whereIn('id' , $multiDeletes)->delete();
-            return redirect()->back()->with('success',  __('message.multi_delete') . $count);
+    public function filterProduct(Request $request) {
+        $products = Product::where('price' , '>', 0);
+        if($request->has('categoryId')) {
+            $products->whereIn('category_id', $request->categoryId);
         }
-        catch(ModelNotFoundException $ModelNotFoundException) {
-            return redirect()->route('product.index')->with('error',  __('message.not_found'));
+        if($request->has('colorId')) {
+            $products->whereHas('colors', function($q) {
+                $q->whereIn('color_id', request()->colorId);
+            });
         }
+        if($request->has('sizeId')) {
+            $products->whereHas('sizes', function($q) {
+                $q->whereIn('size_id', request()->sizeId);
+            });
+        }
+        if($request->has('low_price')) {
+            $products->where('price', '>=', $request->low_price);
+        }
+        if($request->has('high_price')) {
+            $products->where('price', '<=', $request->high_price);
+        }
+        if($request->has('rating')) {
+            $products->filter(function($product){
+                return $product->reviews->avg('rating') == $request->low_price;
+            });
+        }
+        return $this->sendResponse('products', $products->get());
     }
 }
