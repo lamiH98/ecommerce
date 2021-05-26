@@ -3,7 +3,7 @@
 Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
 
-Route::group(['prefix' => 'dashboard' , 'namespace' => 'Dashboard' , 'middleware' => 'auth:admin'], function () {
+Route::group(['prefix' => 'dashboard' , 'namespace' => 'dashboard' , 'middleware' => 'auth:admin'], function () {
     // Route Dashboard
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
