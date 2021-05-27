@@ -11,6 +11,11 @@ use App\Http\Controllers\Controller;
 class ReviewController extends Controller
 {
     use GeneralTrait;
+    
+    public function index(){
+        $reviews = Review::all();
+        return $this->sendResponse('reviews', $reviews);
+    }
 
     public function getAvg($id) {
         $product = Product::findOrFail($id)->reviews()->avg('rating');
@@ -26,7 +31,6 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        dd(Review::all());
         try {
             Review::create($request->all());
                 return $this->sendSuccess('added review successfully');
