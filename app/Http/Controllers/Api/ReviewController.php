@@ -26,6 +26,7 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
+        dd(Review::all());
         try {
             Review::create($request->all());
                 return $this->sendSuccess('added review successfully');
