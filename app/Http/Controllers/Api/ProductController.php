@@ -146,12 +146,12 @@ class ProductController extends Controller
         if($request->has('categoryId')) {
             $products->whereIn('category_id', $request->categoryId);
         }
-        if($request->has('colorId')) {
+        if($request->colorId != null) {
             $products->whereHas('colors', function($q) {
                 $q->whereIn('color_id', request()->colorId);
             });
         }
-        if($request->has('sizeId')) {
+        if($request->sizeId != null) {
             $products->whereHas('sizes', function($q) {
                 $q->whereIn('size_id', request()->sizeId);
             });
