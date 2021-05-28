@@ -143,7 +143,7 @@ class ProductController extends Controller
 
     public function filterProduct(Request $request) {
         $products = Product::where('price' , '>', 0);
-        if($request->has('categoryId')) {
+        if($request->categoryId != null) {
             $products->whereIn('category_id', $request->categoryId);
         }
         if($request->colorId != null) {
