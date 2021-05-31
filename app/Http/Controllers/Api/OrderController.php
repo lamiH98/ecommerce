@@ -45,6 +45,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         try {
             $order = Order::create($request->all());
                 return $this->sendSuccess('added order successfully');
