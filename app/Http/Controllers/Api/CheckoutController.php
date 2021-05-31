@@ -61,7 +61,6 @@ class CheckoutController extends Controller
             'phone'             => $request->phone,
             'discount'          => $request->discount,
             'discount_code'     => $request->code,
-            'error'             => $request->error,
             'status'            => $request->status,
             'total'             => $request->total,
             'newTotal'          => $request->newTotal,
