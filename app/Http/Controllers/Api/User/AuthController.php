@@ -51,7 +51,6 @@ class AuthController extends Controller
             $credentials = $request->only(['email', 'password', 'device_token']);
 
             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
-            return $this->sendResponse('user', $request->device_token, 'User');  //return json response
 
             if (!$token)
                 return $this->sendError($token);
