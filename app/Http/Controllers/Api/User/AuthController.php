@@ -56,13 +56,13 @@ class AuthController extends Controller
                 return $this->sendError($token);
 
             $user = Auth::guard('user-api')->user();
-            $user->update(['device_token' => $request->device_token]);
+            $user->device_token = $request->device_token;
             $user->api_token = $token;
             //return token
             return $this->sendResponse('user', $user, 'User');  //return json response
 
         } catch (\Exception $ex) {
-            return sendError($ex->getMessage());
+            return sendError($user->device_token);
         }
     }
 
