@@ -62,7 +62,7 @@ class AuthController extends Controller
             return $this->sendResponse('user', $user, 'User');  //return json response
 
         } catch (\Exception $ex) {
-            return sendError($user->device_token);
+            return sendError('Hi I\'am Error');
         }
     }
 
