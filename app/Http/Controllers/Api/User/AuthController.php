@@ -40,28 +40,26 @@ class AuthController extends Controller
 
     public function login(Request $request) {
 
-        dd($request->all());
-//         try {
-//             $rules = [
-//                 "email" => "required",
-//                 "password" => "required"
-//             ];
+        try {
+            $rules = [
+                "email" => "required",
+                "password" => "required"
+            ];
 
-//             $validator = Validator::make($request->all(), $rules);
-//             //login
-//             $credentials = $request->only(['email', 'password', 'device_token']);
-//             dd($request->device_token);
+            $validator = Validator::make($request->all(), $rules);
+            //login
+            $credentials = $request->only(['email', 'password', 'device_token']);
 
-//             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
+            $token = Auth::guard('user-api')->attempt($credentials);  //generate token
 
-//             if (!$token)
-//                 return $this->sendError($token);
+            if (!$token)
+                return $this->sendError($token);
 
-//             $user = Auth::guard('user-api')->user();
-// //             $user->device_token = $request->device_token;
-//             $user->api_token = $token;
-//             //return token
-//             return $this->sendResponse('user', $user, 'User');  //return json response
+            $user = Auth::guard('user-api')->user();
+//             $user->device_token = $request->device_token;
+            $user->api_token = $token;
+            //return token
+            return $this->sendResponse('user', $user, 'User');  //return json response
 
         } catch (\Exception $ex) {
             return sendError('Hi I\'am Error');
