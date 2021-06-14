@@ -48,7 +48,7 @@ class AuthController extends Controller
 
             $validator = Validator::make($request->all(), $rules);
             //login
-            $credentials = $request->only(['email', 'password', 'device_token']);
+            $credentials = $request->only(['email', 'password']);
 
             $token = Auth::guard('user-api')->attempt($credentials);  //generate token
 
