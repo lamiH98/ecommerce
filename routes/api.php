@@ -70,6 +70,7 @@ Route::group(['middleware' => ['api'], 'namespace' => 'Api'], function() {
         Route::post('login','AuthController@Login');
         Route::post('register','AuthController@register');
         Route::post('getUser', 'AuthController@getUser')->middleware('auth.guard:api');
+        Route::post('logout','AuthController@logout');
     });
 
 
