@@ -40,7 +40,7 @@ class AuthController extends Controller
 
     public function login(Request $request) {
 
-        return sendError($request->device_token);
+        dd($request->all());
 //         try {
 //             $rules = [
 //                 "email" => "required",
