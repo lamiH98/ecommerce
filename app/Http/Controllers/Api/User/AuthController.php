@@ -105,7 +105,7 @@ class AuthController extends Controller
             }catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
                 return  $this->returnError('','some thing went wrongs');
             }
-            return $this->returnSuccessMessage('Logged out successfully');
+            return $this->sendSuccess('Logged out successfully');
         } else {
             $this->returnError('','some thing went wrongs');
         }
